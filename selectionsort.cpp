@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 void selectionsort(std::vector<int>& data){ // Selectionsort(Data: values[])
     for(int i=0; i<data.size(); ++i){       //     For i = 0 To <length of values> - 1
@@ -37,10 +38,16 @@ int main(){
     std::vector<int> example = fill_random(30,99);
     toString(example);
 
-    std::cout << "\nSelectionsort: \n";
+    auto start = std::chrono::high_resolution_clock::now();
 
+    std::cout << "\nSelectionsort: \n";
     selectionsort(example);
     toString(example);
+
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    double total_time = duration.count() / 1'000'000.0;
+    std::cout << "Total time: " << total_time << "\n";
 
 }
 
