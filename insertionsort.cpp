@@ -21,20 +21,31 @@ std::vector<int> fill_random(int size, int max_value){
 // End Insertionsort
 
 void Insertionsort(std::vector<int>& data){
-    for(i = 0; i < data.size - 1; ++i){
-        int min_index = i;
-        for(j = i + 1,){
-
+    for(int i = 1; i < data.size(); ++i){
+        int key = data[i];
+        int j = i - 1;
+        while (j >= 0 && data[j] > key) {
+            data[j + 1] = data[j];
+            j = j - 1;
         }
-
+        data[j + 1] = key;
     }
 }
 
 int main(){
-    std::vector<int> ejemplo = fill_random(100,99);
+    std::vector<int> ejemplo = fill_random(10,99);
     for(int i=0; i < ejemplo.size(); ++i){
         std::cout << ejemplo.at(i) << " ";
     }
     std::cout <<"\n";
 
+ Insertionsort(ejemplo);
+
+    std::cout << "Sorted array: ";
+    for(int i = 0; i < ejemplo.size(); ++i){
+        std::cout << ejemplo.at(i) << " ";
+    }
+    std::cout << "\n";
+
+    return 0;
 }
