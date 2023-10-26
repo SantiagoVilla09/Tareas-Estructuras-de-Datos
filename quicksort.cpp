@@ -5,6 +5,7 @@
 // Quicksort(Data: values[], Integer: start, Integer: end)
 void quicksort(std::vector<int>& data, int start,int end){
 
+    if(start>=end) return;
 //     <Pick a dividing item from the array. Call it divider.>
     int divider = data.at(start);
 
@@ -55,13 +56,10 @@ void quicksort(std::vector<int>& data, int start,int end){
 
 // Recursively sort the two halves of the array.
 //     Quicksort(values, start, middle - 1)
-    if((middle - 1) > start){
     quicksort(data, start, middle - 1);
-    }
 //     Quicksort(values, middle + 1, end)
-    if((middle + 1) < end){
     quicksort(data, middle + 1, end);
-    }
+
 // End Quicksort
 }
 
