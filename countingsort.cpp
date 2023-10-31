@@ -34,17 +34,6 @@ void countingsort(std::vector<int>& data){
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 std::vector<int> fill_random(int size, int max_value){
 
     std::vector<int> data(size);
