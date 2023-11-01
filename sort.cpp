@@ -7,7 +7,7 @@
 std::vector<int> fill_random(int size, int max_value){
 
     std::vector<int> data(size);
-    std::srand(6);
+    std::srand(0);
     for(int i=0; i < data.size(); ++i){
         data.at(i) = std::rand() % max_value;
     }

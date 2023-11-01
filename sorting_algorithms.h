@@ -124,3 +124,76 @@ void quicksort(std::vector<int>& data, int start,int end){
 // End Quicksort
 }
 
+
+//Complexity: O(N log N)
+void mergesort(std::vector<int>& data, std::vector<int>& scratch, int start, int end) {
+    if (start == end) {
+        return;
+    }
+
+    int midpoint = (start + end) / 2;
+    mergesort(data, scratch, start, midpoint);
+    mergesort(data, scratch, midpoint + 1, end);
+
+    int left_index = start;
+    int right_index = midpoint + 1;
+    int scratch_index = start;
+
+    while (left_index <= midpoint && right_index <= end) {
+        if (data[left_index] <= data[right_index]) {
+            scratch[scratch_index] = data[left_index];
+            left_index++;
+        }
+        else {
+            scratch[scratch_index] = data[right_index];
+            right_index++;
+        }
+        scratch_index++;
+    }
+
+    while (left_index <= midpoint) {
+        scratch[scratch_index] = data[left_index];
+        left_index++;
+        scratch_index++;
+    }
+
+    while (right_index <= end) {
+        scratch[scratch_index] = data[right_index];
+        right_index++;
+        scratch_index++;
+    }
+
+    for (int i = start; i <= end; i++) {
+        data[i] = scratch[i];
+    }
+}
+
+
+// Complexity: O(N)
+void countingsort(std::vector<int>& data){
+
+    int max = data.at(0);
+
+    for(int i=0; i<data.size();++i){
+        if(data.at(i) > max){
+            max = data.at(i);
+        }
+    }
+    ++max;
+    // Make an array to hold the counts.
+    std::vector<int> counts(max);
+
+    // Count the items with each value.
+    for(int i=0; i<data.size(); ++i){
+        counts.at(data.at(i)) = counts.at(data.at(i)) + 1;
+    }
+
+    // Copy the values back into the array.
+    int index = 0;
+    for(int i=0; i<max;++i){
+        for(int j=0; j<counts.at(i); ++j){
+            data.at(index) = i;
+            ++index;
+        }
+    }
+}
