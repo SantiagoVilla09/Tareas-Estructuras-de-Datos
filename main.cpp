@@ -80,21 +80,21 @@ void toString(std::vector<int>& data){
 
 int main(){
 
-    int size;
-    int max;
+    int size = 1000000;
+    int max = 99;
 
-    std::cout << "size: " << "\n";
-    std::cin >> size;
-    std::cout << "max: " << "\n";
-    std::cin >> max;
-    std::cout << "\n\n";
+    // std::cout << "size: " << "\n";
+    // std::cin >> size;
+    // std::cout << "max: " << "\n";
+    // std::cin >> max;
+    // std::cout << "\n\n";
 
     std::vector<int> sample = fill_random(size,max);
     // std::vector<int> sample = fill_ascending(size, max);
     // std::vector<int> sample = fill_descending(size, max);
 
 
-    toString(sample);
+    // toString(sample);
 
 
     std::cout << "\nstd::sort: \n";
@@ -168,7 +168,7 @@ int main(){
     std::vector copy_5 = sample;
 
     start = std::chrono::high_resolution_clock::now();
-    quicksort(copy_5, 0, copy_4.size() - 1);
+    quicksort(copy_5, 0, copy_5.size() - 1);
     stop = std::chrono::high_resolution_clock::now();
 
     // toString(copy_5);
@@ -186,8 +186,8 @@ int main(){
 
     start = std::chrono::high_resolution_clock::now();
 
-    std::vector<int> scratch(copy_5.size());
-    mergesort(copy_6, scratch, 0, copy_5.size() - 1);
+    std::vector<int> scratch(copy_6.size());
+    mergesort(copy_6, scratch, 0, copy_6.size() - 1);
     stop = std::chrono::high_resolution_clock::now();
 
     // toString(copy_6);
