@@ -41,7 +41,7 @@ void toString(std::vector<int>& data){
 }
 
 int main(){
-    std::vector<int> example = fill_random(30,999);
+    std::vector<int> example = fill_random(1000000,99);
     toString(example);
 
     auto start = std::chrono::high_resolution_clock::now();

@@ -80,8 +80,8 @@ void toString(std::vector<int>& data){
 
 int main(){
 
-    int size = 1000000;
-    int max = 99;
+    int size = 10000000;
+    int max = 999;
 
     // std::cout << "size: " << "\n";
     // std::cin >> size;
@@ -89,9 +89,9 @@ int main(){
     // std::cin >> max;
     // std::cout << "\n\n";
 
-    std::vector<int> sample = fill_random(size,max);
+    // std::vector<int> sample = fill_random(size,max);
     // std::vector<int> sample = fill_ascending(size, max);
-    // std::vector<int> sample = fill_descending(size, max);
+    std::vector<int> sample = fill_descending(size, max);
 
 
     // toString(sample);
@@ -113,70 +113,70 @@ int main(){
     std::cout << "Total time: " << total_time << "\n";
 
 
-    std::cout << "\nInsertionsort: \n";
+    // std::cout << "\nInsertionsort: \n";
 
-    std::vector copy_2 = sample;
+    // std::vector copy_2 = sample;
 
-    start = std::chrono::high_resolution_clock::now();
-    insertionsort(copy_2);
-    stop = std::chrono::high_resolution_clock::now();
+    // start = std::chrono::high_resolution_clock::now();
+    // insertionsort(copy_2);
+    // stop = std::chrono::high_resolution_clock::now();
 
-    // toString(copy_2);
+    // // toString(copy_2);
 
-    duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-    total_time = duration.count() / 1'000'000.0;
-    std::cout << std::fixed << std::setprecision(6);
-    std::cout << "Total time: " << total_time << "\n";
-
-
-
-    std::cout << "\nSelectionsort: \n";
-
-    std::vector copy_3 = sample;
-
-    start = std::chrono::high_resolution_clock::now();
-    selectionsort(copy_3);
-    stop = std::chrono::high_resolution_clock::now();
-
-    // toString(copy_3);
-
-    duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-    total_time = duration.count() / 1'000'000.0;
-    std::cout << std::fixed << std::setprecision(6);
-    std::cout << "Total time: " << total_time << "\n";
+    // duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    // total_time = duration.count() / 1'000'000.0;
+    // std::cout << std::fixed << std::setprecision(6);
+    // std::cout << "Total time: " << total_time << "\n";
 
 
 
-    std::cout << "\nBubblesort: \n";
+    // std::cout << "\nSelectionsort: \n";
 
-    std::vector copy_4 = sample;
+    // std::vector copy_3 = sample;
 
-    start = std::chrono::high_resolution_clock::now();
-    bubblesort(copy_4);
-    stop = std::chrono::high_resolution_clock::now();
+    // start = std::chrono::high_resolution_clock::now();
+    // selectionsort(copy_3);
+    // stop = std::chrono::high_resolution_clock::now();
 
-    // toString(copy_4);
+    // // toString(copy_3);
 
-    duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-    total_time = duration.count() / 1'000'000.0;
-    std::cout << std::fixed << std::setprecision(6);
-    std::cout << "Total time: " << total_time << "\n";
+    // duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    // total_time = duration.count() / 1'000'000.0;
+    // std::cout << std::fixed << std::setprecision(6);
+    // std::cout << "Total time: " << total_time << "\n";
 
 
-    std::cout << "\nQuicksort: \n";
 
-    std::vector copy_5 = sample;
+    // std::cout << "\nBubblesort: \n";
 
-    start = std::chrono::high_resolution_clock::now();
-    quicksort(copy_5, 0, copy_5.size() - 1);
-    stop = std::chrono::high_resolution_clock::now();
+    // std::vector copy_4 = sample;
 
-    // toString(copy_5);
+    // start = std::chrono::high_resolution_clock::now();
+    // bubblesort(copy_4);
+    // stop = std::chrono::high_resolution_clock::now();
 
-    duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-    total_time = duration.count() / 1'000'000.0;
-    std::cout << std::fixed << std::setprecision(6);
-    std::cout << "Total time: " << total_time << "\n";
+    // // toString(copy_4);
+
+    // duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    // total_time = duration.count() / 1'000'000.0;
+    // std::cout << std::fixed << std::setprecision(6);
+    // std::cout << "Total time: " << total_time << "\n";
+
+
+    // std::cout << "\nQuicksort: \n";
+
+    // std::vector copy_5 = sample;
+
+    // start = std::chrono::high_resolution_clock::now();
+    // quicksort(copy_5, 0, copy_5.size() - 1);
+    // stop = std::chrono::high_resolution_clock::now();
+
+    // // toString(copy_5);
+
+    // duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    // total_time = duration.count() / 1'000'000.0;
+    // std::cout << std::fixed << std::setprecision(6);
+    // std::cout << "Total time: " << total_time << "\n";
 
 
 
