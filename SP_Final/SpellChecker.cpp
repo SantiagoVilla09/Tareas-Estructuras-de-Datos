@@ -12,10 +12,6 @@ struct word {
     int column;
 };
 
-struct s_key {
-    std::string soundex;
-    std::vector<std::string> s_vector;
-};
 
 
 bool read_words(const std::string input_file_name, std::vector<word>& words)
@@ -57,15 +53,16 @@ bool read_dictionary(const std::string input_file_name, std::vector<std::string>
 }
 
 
-
+// Returns Soundex key of the argument
+// Complexity: O(N)
 std::string soundex(std::string word) {
 
     std::string soundex;
 
     soundex += std::tolower(word[0]);
 
-    for(char c : word){
-        switch(c){
+    for(int i=1; i<word.size(); ++i){
+        switch(word[i]){
             case 'b':
             case 'f':
             case 'p':
@@ -109,6 +106,11 @@ std::string soundex(std::string word) {
     return soundex;
 }
 
+
+
+
+
+
 int main(){
 
     std::vector<std::string> wordset;
@@ -118,26 +120,37 @@ int main(){
     read_words("tooinkle.txt", words);
 
 
-    std::vector<s_key> dictionary;
 
+
+    // Create dictionary, each key is a unique soundex and the value is a vector of the words with the same soundex.
+    std::unordered_map<std::string, std::vector<std::string>> dictionary;
+    std::string s;
     for(std::string w : wordset){
-        std::string s = soundex(w);
-        for (s_key d : dictionary){
-            if(s == d.soundex){
-                d.s_vector.push_back(w);
-            } else{
-                dictionary.push_back({s, {s}});
-            }
-        }
+        s = soundex(w);
+        dictionary.insert({s,{}});
     }
 
-    // std::string soundex_test = soundex("aabbccdd");
+    // Add words to the dictionary.
+    for (std::string w : wordset){
+        s = soundex(w);
+        dictionary.at(s).push_back(w);
+    }
 
-    std::cout << dictionary.size();
+
+    std::cout << dictionary.size() << "\n";
 
 
+    std::string w_ex;
+    std::cout << "Enter a word: " << "\n";
+    std::cin >> w_ex;
 
+    std::string s_ex = soundex(w_ex);
+    std::cout << w_ex << " -> Soundex: " << s_ex << "\n Other words with same Soundex: \n";
 
+    for(std::string i : dictionary.at(s_ex)){
+        std::cout << i << " ";
+    }
+    std::cout <<"\n";
 
     return 0;
 }
