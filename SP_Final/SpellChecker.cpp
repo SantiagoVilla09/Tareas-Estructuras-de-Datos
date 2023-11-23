@@ -62,7 +62,7 @@ std::string soundex(std::string word) {
     soundex += std::tolower(word[0]);
 
     for(int i=1; i<word.size(); ++i){
-        switch(word[i]){
+        switch(std::tolower(word[i])){
             case 'b':
             case 'f':
             case 'p':
