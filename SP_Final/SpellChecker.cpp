@@ -4,6 +4,7 @@
 #include <cctype>
 #include <fstream>
 #include <regex>
+#include <cstring>
 
 
 struct word {
@@ -13,6 +14,13 @@ struct word {
 };
 
 
+std::string lowercase(std::string input_string){
+    std::string output_string;
+    for(char c : input_string){
+        output_string += std::tolower(c);
+    }
+    return output_string;
+}
 
 bool read_words(const std::string input_file_name, std::vector<word>& words)
 {
@@ -111,16 +119,19 @@ std::string soundex(std::string word) {
 
 
 
-int main(){
+int main(int argc, char* argv[]){
+    if(argc != 2){
+        std::cerr << "Please specify an input file.\n";
+        std::exit(1);
+    }
+    std::string file_name = argv[1];
+
+    std::vector<word> words;
+    read_words(file_name, words);
+
 
     std::vector<std::string> wordset;
     read_dictionary("words.txt", wordset);
-
-    std::vector<word> words;
-    read_words("tooinkle.txt", words);
-
-
-
 
     // Create dictionary, each key is a unique soundex and the value is a vector of the words with the same soundex.
     std::unordered_map<std::string, std::vector<std::string>> dictionary;
@@ -137,20 +148,42 @@ int main(){
     }
 
 
-    std::cout << dictionary.size() << "\n";
+    // std::cout << dictionary.size() << "\n";
 
 
-    std::string w_ex;
-    std::cout << "Enter a word: " << "\n";
-    std::cin >> w_ex;
+    // std::string w_ex;
+    // std::cout << "Enter a word: " << "\n";
+    // std::cin >> w_ex;
 
-    std::string s_ex = soundex(w_ex);
-    std::cout << w_ex << " -> Soundex: " << s_ex << "\n Other words with same Soundex: \n";
+    // std::string s_ex = soundex(w_ex);
+    // std::cout << w_ex << " -> Soundex: " << s_ex << "\n Other words with same Soundex: \n";
 
-    for(std::string i : dictionary.at(s_ex)){
-        std::cout << i << " ";
+    // for(std::string i : dictionary.at(s_ex)){
+    //     std::cout << i << " ";
+    // }
+    // std::cout <<"\n";
+
+
+    std::unordered_map<std::string, word> misspelled;
+    bool found;
+    for(word w: words){
+        found = false;
+        if(dictionary.find(soundex(w.text)) != dictionary.end()){
+            for(std::string w1: dictionary.at(soundex(w.text))){
+                if(lowercase(w.text) == w1){
+                    found = true;
+                }
+            }
+        }
+        if(not found){
+            misspelled.insert({lowercase(w.text),w});
+        }
     }
-    std::cout <<"\n";
+
+
+    for(auto ms : misspelled){
+        std::cout << ms.second.text << " - " << soundex(ms.first) << "\n";
+    }
 
     return 0;
 }
