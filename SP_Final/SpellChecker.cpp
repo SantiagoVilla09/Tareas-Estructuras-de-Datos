@@ -4,7 +4,7 @@
 #include <cctype>
 #include <fstream>
 #include <regex>
-#include <cstring>
+#include <algorithm>
 
 
 struct word {
@@ -13,7 +13,8 @@ struct word {
     int column;
 };
 
-
+// Returns input string in all lowercase letters.
+// Complexity O(N)
 std::string lowercase(std::string input_string){
     std::string output_string;
     for(char c : input_string){
@@ -22,6 +23,9 @@ std::string lowercase(std::string input_string){
     return output_string;
 }
 
+
+// Creates a vector with words from input text.
+// Complexity: O(N)
 bool read_words(const std::string input_file_name, std::vector<word>& words)
 {
     std::ifstream input_file(input_file_name);
@@ -46,6 +50,8 @@ bool read_words(const std::string input_file_name, std::vector<word>& words)
     return true;
 }
 
+// Creates an hash table with words from dictionary.
+// Complexity O(N)
 bool read_dictionary(const std::string input_file_name, std::vector<std::string>& wordset)
 {
     std::ifstream input_file(input_file_name);
@@ -115,7 +121,15 @@ std::string soundex(std::string word) {
 }
 
 
-
+// Sorting criteria for words.
+// Complexity: O(1)
+bool first(const word& a, const word& b){
+    if(a.line != b.line){
+        return a.line < b.line;
+    } else {
+        return a.column < b.column;
+    }
+}
 
 
 
@@ -147,23 +161,7 @@ int main(int argc, char* argv[]){
         dictionary.at(s).push_back(w);
     }
 
-
-    // std::cout << dictionary.size() << "\n";
-
-
-    // std::string w_ex;
-    // std::cout << "Enter a word: " << "\n";
-    // std::cin >> w_ex;
-
-    // std::string s_ex = soundex(w_ex);
-    // std::cout << w_ex << " -> Soundex: " << s_ex << "\n Other words with same Soundex: \n";
-
-    // for(std::string i : dictionary.at(s_ex)){
-    //     std::cout << i << " ";
-    // }
-    // std::cout <<"\n";
-
-
+    // Creates a hash table with words not found in dictionary (avoid duplicates).
     std::unordered_map<std::string, word> misspelled;
     bool found;
     for(word w: words){
@@ -180,10 +178,34 @@ int main(int argc, char* argv[]){
         }
     }
 
-
+    // Creates and sorts a vector with misspelled words
+    std::vector<word> un_words;
     for(auto ms : misspelled){
-        std::cout << ms.second.text << " - " << soundex(ms.first) << "\n";
+        un_words.push_back(ms.second);
     }
+    std::sort(un_words.begin(), un_words.end(), first);
+
+
+    // Prints misspelled words and suggestions based on soundex, if any.
+    word unrecognized;
+    for(word w: un_words){
+
+        std::cout << "Unrecognized word: \"" << w.text
+                  << "\". First found at line " << w.line
+                  << ", column " << w.column << ".\n";
+
+        if(dictionary.find(soundex(w.text)) == dictionary.end()){
+            std::cout << "No suggestions: \n";
+        } else {
+            std::cout << "Suggestions: ";
+            std::cout << dictionary.at(soundex(w.text)).at(0);
+            for(int j=1; j < dictionary.at(soundex(w.text)).size(); ++j){
+                std::cout <<", "<< dictionary.at(soundex(w.text)).at(j);
+            }
+            std::cout << "\n\n";
+        }
+    }
+
 
     return 0;
 }
