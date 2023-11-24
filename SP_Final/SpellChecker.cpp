@@ -204,7 +204,7 @@ int main(int argc, char* argv[]){
                   << ", column " << w.column << ".\n";
 
         if(dictionary.find(soundex(w.text)) == dictionary.end()){
-            std::cout << "No suggestions: \n";
+            std::cout << "No suggestions \n\n";
         } else {
             std::cout << "Suggestions: ";
             std::cout << dictionary.at(soundex(w.text)).at(0);
