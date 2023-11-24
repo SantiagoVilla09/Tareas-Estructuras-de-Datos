@@ -1,3 +1,15 @@
+/*----------------------------------------------------------
+ * Project: Spell Checker
+ *
+ * Date: 29-Nov-2023
+ * Authors:
+ *           A01746396 Santiago Villazón Ponce de León
+ *           A01799815 César Antonio Espinosa Madrid
+ *----------------------------------------------------------*/
+
+
+
+
 #include <iostream>
 #include <string>
 #include <vector>
